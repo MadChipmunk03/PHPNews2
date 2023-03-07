@@ -1,0 +1,15 @@
+{
+    "name": "peta/php-news",
+    "authors": [
+        {
+            "name": "MadChipmunk03",
+            "email": "petaslachta@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Model\\": "model/"
+        }
+    }
+}
