@@ -8,6 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Welcome to PHPNews! 🕳</h1>
+    <h1>Welcome to PHPNewsaaa! 🕳</h1>
 </body>
 </html>
