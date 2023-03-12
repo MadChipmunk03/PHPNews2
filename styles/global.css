@@ -1,0 +1,7 @@
+:root {
+    --my-primary: #428BCA;
+}
+
+.my-primary-text {
+    color: var(--my-primary);
+}
