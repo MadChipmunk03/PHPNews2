@@ -1,7 +1,20 @@
 <?php
-    require_once 'vendor/autoload.php'
+    require_once 'vendor/autoload.php';
 
+    use Model\Database;
+    use Model\ArticlesRepository;
 
+    $db = new Database();
+    $arr = new ArticlesRepository($db);
+
+    $tabsNames = ['Články', 'Kategorie', 'Autoři', 'Administrace článků', 'Přidat Článek'];
+    $tabsUrls = ['articles', 'categories', 'authors', 'manage-articles', 'add-article'];
+
+    $URIArgs = explode("/", $_SERVER['REQUEST_URI']);
+    $currentTab = end($URIArgs);
+    if($currentTab == '') $currentTab = $tabsUrls[0] . '.php';
+
+    $articles = $arr->getAll();
 ?>
 
 <!doctype html>
@@ -24,11 +37,16 @@
             <div class="row">
                 <div class="col"></div>
                 <div class="col-8 d-flex justify-content-start">
-                    <a class="mx-2 text-decoration-none text-white">Články</a>
-                    <a class="mx-2 text-decoration-none text-white">Kategorie</a>
-                    <a class="mx-2 text-decoration-none text-white">Autoři</a>
-                    <a class="mx-2 text-decoration-none text-white">Administrace článků</a>
-                    <a class="mx-2 text-decoration-none text-white">Přidat článek</a>
+                    <?php for($i = 0; $i < count($tabsNames); $i++):
+                        $isCurrent = $currentTab == $tabsUrls[$i] . '.php';
+                        ?>
+                        <a href="<?= $tabsUrls[$i] ?>" class="mx-2 text-decoration-none <?= $isCurrent ? 'text-white' : 'text-muted' ?> position-relative">
+                            <?= $tabsNames[$i] ?>
+                            <?php if($isCurrent): ?>
+                                <svg width="1em" height="1em" class="position-absolute top-100 start-50 translate-middle mt-1" fill="#FFF"><path d="M 2.451 12.14 L 7.247 5.48 L 12.043 12.14 L 2.451 12.14"/></svg>
+                            <?php endif; ?>
+                        </a>
+                    <?php endfor; ?>
                 </div>
                 <div class="col"></div>
             </div>
@@ -41,17 +59,24 @@
             <div class="col-8">
                 <h1 class="mt-4 my-primary-text">Články</h1>
                 <p class="text-secondary">Nejnovější zprávy z IT</p>
-                <section class="article">
-                    <h3 class="article-title my-primary-text">Let's Encrypt zablokoval</h3>
-                    <div class="d-flex justify-content-start">
-                        <p class="text-secondary">11.1.2018</p>
-                        <p class="atricle-author my-primary-text">Karel Vágner</p>
-                    </div>
-                    <p class="article-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus at cupiditate, dolore earum harum ipsum officia perferendis quaerat quam quia quibusdam sunt. Beatae error eveniet ipsam mollitia quisquam sit tempora!</p>
-                </section>
-                <div class="text-end">
-                    <a href="" class="text-decoration-none my-primary-text">číst dál 🡆</a>
-                </div>
+                <?php foreach($articles as $article):
+                    $date = new DateTime($article['published']);
+                    $date = $date->format('d.m.Y h:i');
+                    ?>
+                    <a href="" class="text-decoration-none">
+                        <section class="article">
+                            <h3 class="article-title my-primary-text"><?= $article['title'] ?></h3>
+                            <div class="d-flex justify-content-start">
+                                <p class="text-secondary"><?= $date ?></p>
+                                <a href="" class="mx-2 text-decoration-none my-primary-text"><?= $article['author'] ?></a>
+                            </div>
+                            <p class="article-text"><?= $article['text'] ?></p>
+                            <div class="text-end">
+                                <a href="" class="text-decoration-none my-primary-text">číst dál 🡆</a>
+                            </div>
+                        </section>
+                    </a>
+                <?php endforeach; ?>
             </div>
             <div class="col"></div>
         </div>

@@ -4,7 +4,7 @@ namespace Model;
 
 use PDO;
 
-abstract class Database{
+class Database{
 
     const HOST = 'madchipmunk03.cz';
     const PORT = '3306';
@@ -24,7 +24,7 @@ abstract class Database{
         $this->conn->query('SET NAMES utf8');
     }
 
-    public function select($sql, $params)
+    public function select($sql, $params = [])
     {
         $stmt = $this->execute($sql, $params);
         return $stmt->fetchAll();
