@@ -8,11 +8,11 @@
     $arr = new ArticlesRepository($db);
 
     $tabsNames = ['Články', 'Kategorie', 'Autoři', 'Administrace článků', 'Přidat Článek'];
-    $tabsUrls = ['articles', 'categories', 'authors', 'manage-articles', 'add-article'];
+    $tabsUrls = ['articles.php', 'categories.php', 'authors.php', 'manage-articles.php', 'add-article.php'];
 
     $URIArgs = explode("/", $_SERVER['REQUEST_URI']);
     $currentTab = end($URIArgs);
-    if($currentTab == '') $currentTab = $tabsUrls[0] . '.php';
+    if($currentTab == '') $currentTab = $tabsUrls[0];
 
     $articles = $arr->getAll();
 ?>
@@ -26,7 +26,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/global.css">
 </head>
 <body>
@@ -38,7 +37,7 @@
                 <div class="col"></div>
                 <div class="col-8 d-flex justify-content-start">
                     <?php for($i = 0; $i < count($tabsNames); $i++):
-                        $isCurrent = $currentTab == $tabsUrls[$i] . '.php';
+                        $isCurrent = $currentTab == $tabsUrls[$i];
                         ?>
                         <a href="<?= $tabsUrls[$i] ?>" class="mx-2 text-decoration-none <?= $isCurrent ? 'text-white' : 'text-muted' ?> position-relative">
                             <?= $tabsNames[$i] ?>
@@ -57,7 +56,7 @@
         <div class="row">
             <div class="col"></div>
             <div class="col-8">
-                <h1 class="mt-4 my-primary-text">Články</h1>
+                <h1 class="mt-4 mb-0">Články</h1>
                 <p class="text-secondary">Nejnovější zprávy z IT</p>
                 <?php foreach($articles as $article):
                     $date = new DateTime($article['published']);
@@ -70,7 +69,7 @@
                                 <p class="text-secondary"><?= $date ?></p>
                                 <a href="" class="mx-2 text-decoration-none my-primary-text"><?= $article['author'] ?></a>
                             </div>
-                            <p class="article-text"><?= $article['text'] ?></p>
+                            <p class="article-subtitle"><?= $article['subtitle'] ?></p>
                             <div class="text-end">
                                 <a href="" class="text-decoration-none my-primary-text">číst dál 🡆</a>
                             </div>

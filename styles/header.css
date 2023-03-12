@@ -1,5 +1,0 @@
-@import "global.css";
-
-body > header {
-    background-color: var(--my-primary);
-}

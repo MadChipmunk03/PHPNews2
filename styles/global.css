@@ -2,6 +2,14 @@
     --my-primary: #428BCA;
 }
 
+body > header {
+    background-color: var(--my-primary);
+}
+
 .my-primary-text {
     color: var(--my-primary);
+}
+
+.article-subtitle {
+    font-family: "Times New Roman", Times, serif;
 }
