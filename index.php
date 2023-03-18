@@ -1,18 +1,18 @@
 <?php
     require_once 'vendor/autoload.php';
+    require_once 'navbarTabs.php';
+
+    /**
+     * @var $tabsNames
+     * @var $tabsUrls
+     * @var $currentTab
+     */
 
     use Model\Database;
     use Model\ArticlesRepository;
 
     $db = new Database();
     $arr = new ArticlesRepository($db);
-
-    $tabsNames = ['Články', 'Kategorie', 'Autoři', 'Administrace článků', 'Přidat Článek'];
-    $tabsUrls = ['articles.php', 'categories.php', 'authors.php', 'manage-articles.php', 'add-article.php'];
-
-    $URIArgs = explode("/", $_SERVER['REQUEST_URI']);
-    $currentTab = end($URIArgs);
-    if($currentTab == '') $currentTab = $tabsUrls[0];
 
     $articles = $arr->getAll();
 ?>
@@ -39,7 +39,7 @@
                     <?php for($i = 0; $i < count($tabsNames); $i++):
                         $isCurrent = $currentTab == $tabsUrls[$i];
                         ?>
-                        <a href="<?= $tabsUrls[$i] ?>" class="mx-2 text-decoration-none <?= $isCurrent ? 'text-white' : 'text-muted' ?> position-relative">
+                        <a href="sites/<?= $tabsUrls[$i] ?>" class="mx-2 text-decoration-none <?= $isCurrent ? 'text-white' : 'text-muted' ?> position-relative">
                             <?= $tabsNames[$i] ?>
                             <?php if($isCurrent): ?>
                                 <svg width="1em" height="1em" class="position-absolute top-100 start-50 translate-middle mt-1" fill="#FFF"><path d="M 2.451 12.14 L 7.247 5.48 L 12.043 12.14 L 2.451 12.14"/></svg>
@@ -62,16 +62,21 @@
                     $date = new DateTime($article['published']);
                     $date = $date->format('d.m.Y h:i');
                     ?>
-                    <a href="" class="text-decoration-none">
                         <section class="article">
-                            <h3 class="article-title my-primary-text"><?= $article['title'] ?></h3>
+                            <a href="sites/article.php?id=<?= $article['id'] ?>" class="text-decoration-none">
+                                <h3 class="article-title my-primary-text"><?= $article['title'] ?></h3>
+                            </a>
                             <div class="d-flex justify-content-start">
                                 <p class="text-secondary"><?= $date ?></p>
-                                <a href="" class="mx-2 text-decoration-none my-primary-text"><?= $article['author'] ?></a>
+                                <a href="sites/authorForm.php?id=<?= $article['author_id'] ?>" class="mx-2 text-decoration-none my-primary-text tnr-font">
+                                    <?= $article['author'] ?>
+                                </a>
                             </div>
-                            <p class="article-subtitle"><?= $article['subtitle'] ?></p>
+                            <a href="sites/article.php?id=<?= $article['id'] ?>" class="text-decoration-none text-black">
+                                <p class="tnr-font"><?= $article['subtitle'] ?></p>
+                            </a>
                             <div class="text-end">
-                                <a href="" class="text-decoration-none my-primary-text">číst dál 🡆</a>
+                                <a href="sites/article.php?id=<?= $article['id'] ?>" class="text-decoration-none my-primary-text">číst dál 🡆</a>
                             </div>
                         </section>
                     </a>

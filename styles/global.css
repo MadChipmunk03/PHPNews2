@@ -10,6 +10,10 @@ body > header {
     color: var(--my-primary);
 }
 
-.article-subtitle {
+.my-primary-bg {
+    background-color: var(--my-primary) !important;
+}
+
+.tnr-font {
     font-family: "Times New Roman", Times, serif;
 }

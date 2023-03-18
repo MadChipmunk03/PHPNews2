@@ -6,6 +6,7 @@ use PDO;
 
 class Database{
 
+    //phpMyAdmin: madchipmunk03.cz/databazicka
     const HOST = 'madchipmunk03.cz';
     const PORT = '3306';
     const DBNAME = 'dbPHPNews';
@@ -28,6 +29,26 @@ class Database{
     {
         $stmt = $this->execute($sql, $params);
         return $stmt->fetchAll();
+    }
+
+    public function selectOne($sql, $params)
+    {
+        $stmt = $this->execute($sql, $params);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function delete($sql, $params = []) {
+        $this->execute($sql, $params);
+    }
+
+    public function insert($sql, $params)
+    {
+        $this->execute($sql, $params);
+    }
+
+    public function update($sql, $params)
+    {
+        $this->execute($sql, $params);
     }
 
     private function execute($sql, $params = [])
