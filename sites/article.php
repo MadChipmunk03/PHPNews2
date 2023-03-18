@@ -57,7 +57,7 @@
     </header>
 
     <main>
-        <div class="row">
+        <div class="row m-0">
             <div class="col"></div>
             <div class="col-8">
                 <h1><?= $article['title'] ?></h1>
