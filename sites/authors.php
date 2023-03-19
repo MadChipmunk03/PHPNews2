@@ -72,7 +72,7 @@
                         <td class="text-center">
                             <a href="authorForm.php?id=<?= $author['id'] ?>" class="text-decoration-none">✏</a>
                             <?php if(intval($author['articleCount']) == 0): ?>
-                                <a href="authorDelete.php" class="text-decoration-none">❌</a>
+                                <a href="authorDelete.php?id=<?= $author['id'] ?>" class="text-decoration-none">❌</a>
                             <?php else: echo '✖' ?>
                             <?php endif; ?>
                         </td>

@@ -11,4 +11,3 @@ $aur = new AuthorsRepository($db);
 $aur->delete($_GET['id']);
 
 header('Location: authors.php');
-die;
