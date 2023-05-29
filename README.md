@@ -5,8 +5,8 @@ A simple website for the latest news about technology. It was made at school to 
 
 You can view articles and as a editor/admin you have the priviledges to add, modify and delete them.
 <div>
-  <img src="images/2.png" width="45%" />
-  <img src="images/4.png" width="45%" />
-  <img src="images/3.png" width="45%" />
-  <img src="images/5.png" width="45%" />
+  <img src="images/2.png" /> <br />
+  <img src="images/3.png" /> <br />
+  <img src="images/4.png" /> <br />
+  <img src="images/5.png" /> <br />
 </div>
